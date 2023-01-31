@@ -4,6 +4,7 @@ import { EcommerceComponent } from './ecommerce.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { DetailsComponent } from './pages/details/details.component';
 import { HomeComponent } from './pages/home/home.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 import { ProductsComponent } from './pages/products/products.component';
 
 const routes: Routes = [
@@ -11,10 +12,6 @@ const routes: Routes = [
     path: '',
     component: EcommerceComponent,
     children: [
-      {
-        path: 'home',
-        component: HomeComponent,
-      },
       {
         path: 'cart',
         component: CartComponent,
@@ -28,8 +25,16 @@ const routes: Routes = [
         component: ProductsComponent,
       },
       {
+        path: 'orders',
+        component: OrdersComponent,
+      },
+      {
+        path: '',
+        component: HomeComponent,
+      },
+      {
         path: '**',
-        redirectTo: 'home',
+        redirectTo: '',
       },
     ],
   },

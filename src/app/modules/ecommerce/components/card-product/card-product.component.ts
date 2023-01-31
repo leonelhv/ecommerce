@@ -3,12 +3,14 @@ import { DialogCantidadProductoComponent } from 'src/app/shared/components/dialo
 import { OverlayService } from 'src/app/shared/services/overlay.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-card-product',
+  templateUrl: './card-product.component.html',
+  styleUrls: ['./card-product.component.css'],
 })
-export class HomeComponent {
-  constructor(private overlayService: OverlayService) {
+export class CardProductComponent {
+  constructor(private overlayService: OverlayService) {}
+
+  onOpenOverlay() {
     this.overlayService.open(DialogCantidadProductoComponent, 'holaaaaaaaaaaa');
   }
 }

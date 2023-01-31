@@ -8,10 +8,34 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ProductsComponent } from './pages/products/products.component';
 import { DetailsComponent } from './pages/details/details.component';
 import { CartComponent } from './pages/cart/cart.component';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { CarouselHeroComponent } from './components/carousel-hero/carousel-hero.component';
+import { CardProductComponent } from './components/card-product/card-product.component';
+//overlay
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { CardCartComponent } from './components/card-cart/card-cart.component';
 @NgModule({
-  declarations: [HomeComponent, EcommerceComponent, ProductsComponent, DetailsComponent, CartComponent],
-  imports: [CommonModule, EcommerceRoutingModule, SharedModule],
+  declarations: [
+    HomeComponent,
+    EcommerceComponent,
+    ProductsComponent,
+    DetailsComponent,
+    CartComponent,
+    CarouselHeroComponent,
+    CardProductComponent,
+    OrdersComponent,
+    CardCartComponent,
+  ],
+  imports: [
+    CommonModule,
+    EcommerceRoutingModule,
+    SharedModule,
+    CarouselModule,
+    OverlayModule,
+    PortalModule,
+  ],
   exports: [EcommerceComponent],
 })
 export class EcommerceModule {}

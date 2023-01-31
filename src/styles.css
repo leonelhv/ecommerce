@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "@angular/cdk/overlay-prebuilt.css";
+
+.overlay-panel {
+  display: flex;
+  justify-content: center;
+  margin: 0 30px;
+  min-width: max-content;
+  max-height: 400px;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #fff;
+}
+.overlay-panel > * {
+  width: inherit;
+  height: inherit;
+  /* overflow-y: scroll; */
+}
+.grid-custom {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}

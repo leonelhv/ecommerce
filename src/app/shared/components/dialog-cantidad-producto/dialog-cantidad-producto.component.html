@@ -1,0 +1,47 @@
+<div class="w-64 p-6 sm:w-96">
+  <h2 class="mb-4 text-2xl font-bold text-center">Cantidad</h2>
+
+  <div class="relative">
+    <input
+      type="number"
+      id="rounded-email"
+      class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-transparent border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:border-transparent"
+      placeholder="Ingrese una cantidad"
+      min="1"
+    />
+  </div>
+  <div class="flex justify-between mt-2">
+    <button
+      type="button"
+      class="flex items-center gap-2 px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-blue-600 rounded-lg shadow-md w-30 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-shopping-cart-plus"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="#ffffff"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <circle cx="6" cy="19" r="2" />
+        <circle cx="17" cy="19" r="2" />
+        <path d="M17 17h-11v-14h-2" />
+        <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
+        <path d="M15 6h6m-3 -3v6" />
+      </svg>
+      Agregar
+    </button>
+
+    <button
+      class="px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-red-600 rounded-lg shadow-md w-30 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+      (click)="onCloseOverlay()"
+    >
+      Cerrar
+    </button>
+  </div>
+</div>
