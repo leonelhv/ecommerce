@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { AddProductComponent } from './pages/add-product/add-product.component';
+import { HomeComponent } from './pages/home/home.component';
 import { ProductsComponent } from './pages/products/products.component';
 
 const routes: Routes = [
@@ -18,8 +19,12 @@ const routes: Routes = [
         component: AddProductComponent,
       },
       {
+        path: '',
+        component: HomeComponent,
+      },
+      {
         path: '**',
-        redirectTo: 'products',
+        redirectTo: '',
       },
     ],
   },

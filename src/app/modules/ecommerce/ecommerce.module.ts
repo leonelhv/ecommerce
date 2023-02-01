@@ -17,6 +17,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { CardCartComponent } from './components/card-cart/card-cart.component';
 import { RouterLink } from '@angular/router';
+import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -28,6 +29,7 @@ import { RouterLink } from '@angular/router';
     CardProductComponent,
     OrdersComponent,
     CardCartComponent,
+    OrderDetailComponent,
   ],
   imports: [
     CommonModule,

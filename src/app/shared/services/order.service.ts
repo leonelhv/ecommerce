@@ -24,4 +24,10 @@ export class OrderService {
     const colQuery = query(productRef, where('email', '==', email));
     return collectionData(colQuery);
   }
+
+  getOrderByUID(uid: string) {
+    const productRef = collection(this.firestore, 'orders');
+    const colQuery = query(productRef, where('uid', '==', uid));
+    return collectionData(colQuery);
+  }
 }

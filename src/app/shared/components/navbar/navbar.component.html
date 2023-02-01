@@ -29,12 +29,12 @@
         <div class="flex-1 w-full h-full bg-transparent"></div>
       </div>
 
-      <div class="block">
+      <div class="flex">
         <div class="flex items-center ml-4 md:ml-6">
           <div class="relative ml-3">
-            <div class="relative inline-block text-left">
-              <div *ngIf="infoUser" class="flex items-center">
-                <span>{{ infoUser.displayName }}</span>
+            <div class="relative text-left">
+              <div *ngIf="infoUser" class="flex items-center justify-center">
+                <p class="whitespace-nowrap">{{ infoUser.displayName }}</p>
                 <button
                   type="button"
                   (click)="onShowSettings()"
@@ -52,6 +52,20 @@
                     >
                     </span>
                   </div>
+                </button>
+              </div>
+              <div class="flex gap-4" *ngIf="!infoUser">
+                <button
+                  class="px-4 py-2 text-white bg-blue-500 rounded-lg"
+                  routerLink="/auth/login"
+                >
+                  Iniciar Sesión
+                </button>
+                <button
+                  class="px-4 py-2 text-white bg-orange-500 rounded-lg"
+                  routerLink="/auth/register"
+                >
+                  Registrate
                 </button>
               </div>
               <ng-container *ngIf="showSettings">

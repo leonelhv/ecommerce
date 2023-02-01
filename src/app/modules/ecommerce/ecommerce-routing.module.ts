@@ -4,6 +4,7 @@ import { EcommerceComponent } from './ecommerce.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { DetailsComponent } from './pages/details/details.component';
 import { HomeComponent } from './pages/home/home.component';
+import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ProductsComponent } from './pages/products/products.component';
 
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'orders',
         component: OrdersComponent,
+      },
+      {
+        path: 'order-detail/:uid',
+        component: OrderDetailComponent,
       },
       {
         path: '',

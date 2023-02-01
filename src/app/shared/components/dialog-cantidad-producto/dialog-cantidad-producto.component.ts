@@ -3,6 +3,7 @@ import { Product } from 'src/app/interfaces/product.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EcommerceService } from '../../services/ecommerce.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dialog-cantidad-producto',
   templateUrl: './dialog-cantidad-producto.component.html',
@@ -16,7 +17,8 @@ export class DialogCantidadProductoComponent {
   constructor(
     private overlayService: OverlayService,
     private fb: FormBuilder,
-    private ecommerceService: EcommerceService
+    private ecommerceService: EcommerceService,
+    private toastr: ToastrService
   ) {
     this.initForm();
   }
@@ -50,6 +52,7 @@ export class DialogCantidadProductoComponent {
       const newCart = [...cartUSer, newItem];
 
       this.ecommerceService.saveCartLocalStorage(newCart);
+      this.toastr.success('Producto añadido al carrito', 'Producto Agregado');
       this.overlayService.close();
     }
   }

@@ -1,5 +1,10 @@
 <div class="flex justify-center h-24 py-4 border-b border-gray-300">
-  <img src="assets/img/logo.png" alt="" class="h-full" />
+  <img
+    routerLink="/"
+    src="assets/img/logo.png"
+    alt=""
+    class="h-full cursor-pointer"
+  />
 </div>
 
 <div class="container max-w-md px-4 mx-auto my-7">
@@ -79,11 +84,12 @@
           </p>
         </div>
       </div>
-      <div></div>
+
       <div
         class="flex flex-col justify-center gap-4 sm:flex-row sm:items-center"
       >
         <button
+          type="submit"
           (click)="loginWithEmail()"
           class="w-full p-4 font-semibold text-white bg-blue-500 px-7 rounded-3xl sm:w-auto hover:scale-105"
         >

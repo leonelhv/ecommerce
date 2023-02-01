@@ -8,7 +8,13 @@ import { from, map, Observable, of } from 'rxjs';
 import { fetchSignInMethodsForEmail } from '@angular/fire/auth';
 import { userData, userInfo } from 'src/app/interfaces/auth.interface';
 import { collection } from '@firebase/firestore';
-import { addDoc, doc, Firestore, getDoc } from '@angular/fire/firestore';
+import {
+  addDoc,
+  collectionData,
+  Firestore,
+  query,
+  where,
+} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -51,28 +57,25 @@ export class AuthService {
         };
         const userRef = collection(this.firestore, 'users');
 
-        addDoc(userRef, objUser);
+        addDoc(userRef, objUser).then(() => {
+          this.loginWithEmail(email, password);
+        });
       })
       .catch((error) => {
         console.log(error);
       });
   }
   logout() {
-    this.auth.signOut();
-    localStorage.removeItem('user');
-    this.router.navigate(['/auth/login']);
+    this.auth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['auth/login']);
+    });
   }
 
-  async isRolUser(email: string) {
-    // const userRef = collection(this.firestore, 'users');
-
-    const docRef = doc(this.firestore, 'users', `${email}`);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data();
-    } else {
-      return null;
-    }
+  getRolUser(email: string) {
+    const productRef = collection(this.firestore, 'users');
+    const colQuery = query(productRef, where('email', '==', email));
+    return collectionData(colQuery);
   }
 
   loginWithEmail(email: string, password: string) {
@@ -87,7 +90,13 @@ export class AuthService {
           photoURL,
         };
         localStorage.setItem('user', JSON.stringify(user));
-        this.router.navigate(['/']);
+        this.getRolUser(email).subscribe((res: any) => {
+          if (res[0].rol === 'user') {
+            this.router.navigate(['/']);
+          } else if (res[0].rol === 'admin') {
+            this.router.navigate(['dashboard/products']);
+          }
+        });
       })
       .catch(() => (this.loginEmailInvalid = true));
   }

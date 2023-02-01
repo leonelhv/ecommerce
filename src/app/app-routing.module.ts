@@ -7,17 +7,18 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
+
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+  },
   {
     path: '',
     loadChildren: () =>
       import('./modules/ecommerce/ecommerce.module').then(
         (m) => m.EcommerceModule
       ),
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
     path: '**',
