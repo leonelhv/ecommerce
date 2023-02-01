@@ -1,19 +1,40 @@
 <div class="px-8 mx-auto max-w-7xl">
   <div class="py-6">
-    <h2 class="text-3xl font-bold">Carrito de Compras</h2>
+    <div class="flex items-center gap-6">
+      <h2 class="text-3xl font-bold">Carrito de Compras</h2>
+      <button
+        routerLink="/products"
+        class="py-2 mt-2 font-medium text-white bg-purple-500 rounded-lg w-44 hover:bg-purple-700"
+      >
+        Seguir comprando
+      </button>
+    </div>
     <div class="flex gap-6 mt-6">
       <div class="flex flex-col flex-1 gap-2">
         <ng-container *ngFor="let cartItem of cart">
           <app-card-cart [cartItem]="cartItem"></app-card-cart>
         </ng-container>
+        <div *ngIf="!cart.length">
+          <h2 class="text-2xl">No hay ningún producto en el carrito</h2>
+        </div>
       </div>
-      <div class="w-96">
+      <div class="w-96" *ngIf="cart.length && infoUser">
         <h3 class="text-lg font-semibold">Total:</h3>
         <p class="text-4xl font-bold">{{ totalPagar | currency }}</p>
         <button
+          (click)="onBuyProducts()"
           class="w-full py-2 mt-2 font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-700"
         >
           Pagar
+        </button>
+      </div>
+      <div *ngIf="!infoUser">
+        <h3>Inicia Sesión para realizar la compra</h3>
+        <button
+          routerLink="/auth/login"
+          class="w-full py-2 mt-2 font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-700"
+        >
+          Ir a login
         </button>
       </div>
     </div>

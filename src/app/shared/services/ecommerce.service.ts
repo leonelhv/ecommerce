@@ -43,12 +43,12 @@ export class EcommerceService {
     >;
   }
 
-  deleteUser(Product: Product) {
+  deleteProduct(Product: Product) {
     const productRef = doc(this.firestore, `products/${Product.id}`);
     return deleteDoc(productRef);
   }
 
-  updateUser(id: string, Product: Product) {
+  updateProduct(id: string, Product: Product) {
     const productRef = doc(this.firestore, `products/${id}`);
     return updateDoc(productRef, { ...Product });
   }

@@ -9,13 +9,13 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  infoUser$!: Observable<userInfo>;
+  infoUser!: userInfo | null;
   showSettings = false;
   displayMenuMobile = false;
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // console.log(this.authService.datosUsuario());
+    this.infoUser = JSON.parse(localStorage.getItem('user')!);
   }
 
   //Muestra el menú settings

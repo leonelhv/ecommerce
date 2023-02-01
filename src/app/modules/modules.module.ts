@@ -3,7 +3,7 @@ import { AuthModule } from './auth/auth.module';
 import { EcommerceModule } from './ecommerce/ecommerce.module';
 
 @NgModule({
-  imports: [AuthModule, EcommerceModule],
+  imports: [],
   exports: [AuthModule, EcommerceModule],
 })
 export class ModulesModule {}

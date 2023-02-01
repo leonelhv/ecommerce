@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getAuth } from 'firebase/auth';
-import firebase from 'firebase/compat/app';
 
 import { from, map, Observable, of } from 'rxjs';
 import { fetchSignInMethodsForEmail } from '@angular/fire/auth';
 import { userData, userInfo } from 'src/app/interfaces/auth.interface';
+import { collection } from '@firebase/firestore';
+import { addDoc, doc, Firestore, getDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +17,13 @@ export class AuthService {
   loginEmailInvalid: boolean = false;
   infoUser: userInfo | null = null;
 
-  constructor(private auth: AngularFireAuth, private router: Router) {}
+  constructor(
+    private auth: AngularFireAuth,
+    private router: Router,
+    private firestore: Firestore
+  ) {}
 
-  /* datosUsuario() {
+  datosUsuario(): Observable<userInfo> {
     const auth = getAuth();
     const user = auth.currentUser;
     const userInfo: userInfo = {
@@ -26,21 +31,7 @@ export class AuthService {
       email: user!.email,
       photoURL: user!.photoURL,
     };
-    return userInfo;
-  } */
-  datosUsuario(): Observable<any> {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    const userInfo = {
-      // displayName: user!.displayName,
-      // email: user!.email,
-      // photoURL: user!.photoURL,
-    };
-    /* if (userInfo) {
-      return of(userInfo);
-    }
-    return of(null); */
-    return of(user);
+    return of(userInfo);
   }
 
   registerUser(newUser: userData) {
@@ -54,7 +45,13 @@ export class AuthService {
         });
       })
       .then(() => {
-        this.loginAuth('email', email, password);
+        const objUser = {
+          email,
+          rol: 'user',
+        };
+        const userRef = collection(this.firestore, 'users');
+
+        addDoc(userRef, objUser);
       })
       .catch((error) => {
         console.log(error);
@@ -62,37 +59,35 @@ export class AuthService {
   }
   logout() {
     this.auth.signOut();
-    this.router.navigate(['/']);
+    localStorage.removeItem('user');
+    this.router.navigate(['/auth/login']);
   }
 
-  options: any = {
-    google: () =>
-      this.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()),
-    facebook: () =>
-      this.auth.signInWithRedirect(
-        new firebase.auth.FacebookAuthProvider().setCustomParameters({
-          auth_type: 'rerequest',
-        })
-      ),
-    email: (email: string, password: string) =>
-      this.loginWithEmail(email, password),
-  };
+  async isRolUser(email: string) {
+    // const userRef = collection(this.firestore, 'users');
 
-  loginAuth(provider: string, email?: string, password?: string) {
-    const option = this.options[provider];
-    if (option) {
-      option(email, password);
+    const docRef = doc(this.firestore, 'users', `${email}`);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
     } else {
-      console.log('Otro servicio');
+      return null;
     }
   }
 
   loginWithEmail(email: string, password: string) {
     this.auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((res) => {
         this.loginEmailInvalid = false;
-        this.router.navigate(['']);
+        const { displayName, email, photoURL } = res.user as any;
+        const user = {
+          displayName,
+          email,
+          photoURL,
+        };
+        localStorage.setItem('user', JSON.stringify(user));
+        this.router.navigate(['/']);
       })
       .catch(() => (this.loginEmailInvalid = true));
   }

@@ -7,3 +7,12 @@ export interface CartUser {
   cantidad: number;
   subtotal: number;
 }
+
+export interface OrderUser {
+  uid: string;
+  email: string;
+  products: ProductOrder[];
+  pagoTotal: number;
+}
+
+interface ProductOrder extends CartUser {}

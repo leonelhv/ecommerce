@@ -16,6 +16,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { CardCartComponent } from './components/card-cart/card-cart.component';
+import { RouterLink } from '@angular/router';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -35,6 +36,7 @@ import { CardCartComponent } from './components/card-cart/card-cart.component';
     CarouselModule,
     OverlayModule,
     PortalModule,
+    RouterLink,
   ],
   exports: [EcommerceComponent],
 })

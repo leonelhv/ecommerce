@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 @import "@angular/cdk/overlay-prebuilt.css";
-
 .overlay-panel {
   display: flex;
   justify-content: center;
