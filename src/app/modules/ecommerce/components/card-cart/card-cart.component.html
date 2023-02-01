@@ -1,28 +1,36 @@
-<div class="flex gap-6">
-  <div class="flex gap-8 p-6 border rounded-lg">
-    <div>
-      <img
-        class="h-24"
-        src="https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg"
-        alt=""
-      />
+<div class="flex w-full gap-6">
+  <div class="flex w-full gap-8 p-6 border rounded-lg">
+    <div class="w-24">
+      <img class="object-cover w-24 h-24" [src]="cartItem.image" alt="" />
     </div>
-    <div>
-      <h2 class="text-lg font-bold">
-        Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
+    <div class="flex-grow">
+      <h2 class="pr-12 text-lg font-bold">
+        {{ cartItem.title }}
       </h2>
       <small class="font-semibold">
-        Id Producto: <span class="font-normal">4XrcbbHCmwz2hI56nXy9</span>
+        Id Producto: <span class="font-normal">{{ cartItem.id }}</span>
       </small>
-      <h4 class="font-semibold">Cantidad:<span class="font-normal">5</span></h4>
+      <h4 class="font-semibold">
+        Cantidad:<span class="font-normal">{{ cartItem.cantidad }}</span>
+      </h4>
     </div>
     <div class="flex flex-col justify-between gap-6">
       <div class="flex flex-col text-right">
-        <h4 class="text-xl font-bold text-green-500">S/150</h4>
-        <small class="font-bold line-through text-red-500/80">S/250</small>
+        <h4 class="text-xl font-bold text-green-500">
+          {{
+            cartItem.offer > 0
+              ? (cartItem.offer | currency)
+              : (cartItem.price | currency)
+          }}
+        </h4>
+        <small
+          class="font-bold line-through text-red-500/80"
+          *ngIf="cartItem.offer > 0"
+          >{{ cartItem.price | currency }}</small
+        >
       </div>
-      <div>
-        <h4 class="font-bold">SubTotal: S/750</h4>
+      <div class="w-24 text-right">
+        <h4 class="font-bold">SubTotal: {{ cartItem.subtotal | currency }}</h4>
       </div>
     </div>
   </div>

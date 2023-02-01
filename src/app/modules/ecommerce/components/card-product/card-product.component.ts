@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Product } from 'src/app/interfaces/product.interface';
 import { DialogCantidadProductoComponent } from 'src/app/shared/components/dialog-cantidad-producto/dialog-cantidad-producto.component';
 import { OverlayService } from 'src/app/shared/services/overlay.service';
 
@@ -8,9 +9,11 @@ import { OverlayService } from 'src/app/shared/services/overlay.service';
   styleUrls: ['./card-product.component.css'],
 })
 export class CardProductComponent {
+  @Input() product!: Product;
+
   constructor(private overlayService: OverlayService) {}
 
-  onOpenOverlay() {
-    this.overlayService.open(DialogCantidadProductoComponent, 'holaaaaaaaaaaa');
+  onOpenOverlay(product: Product) {
+    this.overlayService.open(DialogCantidadProductoComponent, { ...product });
   }
 }

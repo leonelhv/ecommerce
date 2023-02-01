@@ -4,9 +4,8 @@
   <h2 class="mb-4 text-3xl font-bold">Nuevos Productos</h2>
 
   <div class="grid-custom">
-    <app-card-product></app-card-product>
-    <app-card-product></app-card-product>
-    <app-card-product></app-card-product>
-    <app-card-product></app-card-product>
+    <ng-container *ngFor="let product of products">
+      <app-card-product [product]="product"></app-card-product>
+    </ng-container>
   </div>
 </div>

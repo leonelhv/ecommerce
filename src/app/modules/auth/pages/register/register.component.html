@@ -1,1 +1,159 @@
-<p>register works!</p>
+<div class="flex justify-center h-24 py-4 border-b border-gray-300">
+  <img src="assets/img/logo.png" alt="" class="h-full" />
+</div>
+
+<div class="container max-w-lg px-4 mx-auto my-7">
+  <div class="flex flex-col justify-center gap-2">
+    <h4 class="my-2 text-3xl font-bold text-center">
+      Regístrate para realizar compras.
+    </h4>
+    <!-- <app-group-boton-login class="flex flex-col gap-2"></app-group-boton-login> -->
+    <div class="flex justify-center">
+      <hr class="flex-1 border-t border-gray-300 my-7" />
+      <span class="flex items-center px-6 text-center">o</span>
+      <hr class="flex-1 border-t border-gray-300 my-7" />
+    </div>
+  </div>
+
+  <div>
+    <form
+      class="flex flex-col gap-3"
+      novalidate
+      [formGroup]="registerForm"
+      (ngSubmit)="registerUser()"
+    >
+      <h2 class="text-xl font-bold text-center">
+        Registrarte con tu correo electrónico
+      </h2>
+      <div class="flex flex-col gap-2">
+        <label class="font-medium" for="email"
+          >¿Cuál es tu correo electrónico?</label
+        >
+        <input
+          class="p-2 border border-gray-400 rounded-md"
+          type="email"
+          id="email"
+          name="email"
+          formControlName="correo"
+          placeholder="Pon tu correo electrónico."
+          [ngClass]="{ 'border-red-600': campoNoValido('correo') }"
+        />
+        <div>
+          <p
+            class="text-sm text-red-600"
+            *ngIf="form['correo']?.errors?.['required'] && form['correo'].touched"
+          >
+            Es necesario que indiques tu correo electrónico.
+          </p>
+          <p
+            class="text-sm text-red-600"
+            *ngIf="form['correo']?.errors?.['pattern'] && form['correo'].touched"
+          >
+            Este correo electrónico no es válido. Asegúrate de que tenga un
+            formato como este: ejemplo@email.com
+          </p>
+          <p
+            class="text-sm text-red-600"
+            *ngIf="form['correo']?.errors?.['emailAlreadyExists'] && form['correo'].touched"
+          >
+            Este correo electrónico ya está conectado a una cuenta.
+            <a class="underline" routerLink="/auth">Inicia sesión.</a>
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="font-medium" for="email2"
+          >Confirma el correo electrónico</label
+        >
+        <input
+          type="email"
+          class="p-2 border border-gray-400 rounded-md"
+          id="email2"
+          name="email2"
+          formControlName="correo2"
+          placeholder="Vuelve a poner tu correo electrónico."
+          [ngClass]="{ 'border-red-600': campoNoValido('correo2') }"
+        />
+        <div>
+          <p
+            class="text-sm text-red-600"
+            *ngIf="form['correo2']?.errors?.['required'] && form['correo2'].touched"
+          >
+            Es necesario que indiques tu correo electrónico.
+          </p>
+
+          <p
+            class="text-sm text-red-600"
+            *ngIf="form['correo2']?.errors?.['equals'] && form['correo2'].touched && !form['correo2'].errors?.['required']"
+          >
+            Las direcciones de correo electrónico no coinciden.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="font-medium" for="password">Crea una contraseña </label>
+        <input
+          type="password"
+          class="p-2 border border-gray-400 rounded-md"
+          id="password"
+          name="password"
+          formControlName="password"
+          placeholder="Crea una contraseña."
+          [ngClass]="{ 'border-red-600': campoNoValido('password') }"
+        />
+        <div>
+          <p
+            class="text-sm text-red-600"
+            *ngIf="form['password']?.errors?.['required'] && form['password'].touched"
+          >
+            Es necesario que indiques una contraseña.
+          </p>
+          <p
+            class="text-sm text-red-600"
+            *ngIf="form['password']?.errors?.['minlength'] && form['password'].touched"
+          >
+            Tu contraseña es demasiado corta.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="font-medium" for="name"
+          >¿Cómo quieres que te llamemos?
+        </label>
+        <input
+          type="text"
+          class="p-2 border border-gray-400 rounded-md"
+          id="name"
+          name="name"
+          formControlName="name"
+          placeholder="Pon un nombre de perfil."
+          [ngClass]="{ 'border-red-600': campoNoValido('name') }"
+        />
+        <div>
+          <p
+            class="text-sm text-red-600"
+            *ngIf="form['name']?.errors?.['required'] && form['name'].touched"
+          >
+            Indica un nombre para tu perfil.
+          </p>
+          <p class="text-sm" *ngIf="!form['name']?.errors?.['required']">
+            Esto aparece en tu perfil.
+          </p>
+        </div>
+      </div>
+    </form>
+    <div class="flex flex-col items-center justify-center mt-9">
+      <button
+        (click)="registerUser()"
+        class="w-40 p-4 font-bold text-white bg-blue-500 px-7 rounded-3xl hover:scale-105"
+      >
+        Registrarte
+      </button>
+      <span class="flex justify-center gap-2 my-3"
+        >¿Ya tienes cuenta?<a class="text-blue-500 underline" routerLink="/auth"
+          >Inicia sesión</a
+        ></span
+      >
+    </div>
+  </div>
+</div>

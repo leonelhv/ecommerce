@@ -2,12 +2,14 @@
   <div class="py-6">
     <h2 class="text-3xl font-bold">Carrito de Compras</h2>
     <div class="flex gap-6 mt-6">
-      <div class="flex flex-col gap-2">
-        <app-card-cart></app-card-cart>
+      <div class="flex flex-col flex-1 gap-2">
+        <ng-container *ngFor="let cartItem of cart">
+          <app-card-cart [cartItem]="cartItem"></app-card-cart>
+        </ng-container>
       </div>
       <div class="w-96">
         <h3 class="text-lg font-semibold">Total:</h3>
-        <p class="text-4xl font-bold">S/750</p>
+        <p class="text-4xl font-bold">{{ totalPagar | currency }}</p>
         <button
           class="w-full py-2 mt-2 font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-700"
         >
