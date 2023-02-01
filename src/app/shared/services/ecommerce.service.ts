@@ -31,7 +31,7 @@ export class EcommerceService {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-  addproducts(Product: Partial<Product>) {
+  addproduct(Product: Partial<Product>) {
     const productRef = collection(this.firestore, 'products');
     return addDoc(productRef, Product);
   }

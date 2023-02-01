@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { EcommerceService } from 'src/app/shared/services/ecommerce.service';
 import { Product } from '../../../interfaces/product.interface';
-import { listProduct } from '../../../mocks/products';
 
 @Component({
   selector: 'app-products',
@@ -9,11 +9,19 @@ import { listProduct } from '../../../mocks/products';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent {
-  products: Product[] = listProduct;
-  constructor(private ecommerceService: EcommerceService) {
-    /*  this.ecommerceService.getProducts().subscribe((products) => {
+  products!: Product[];
+  constructor(
+    private ecommerceService: EcommerceService,
+    private toastr: ToastrService
+  ) {
+    this.ecommerceService.getProducts().subscribe((products) => {
       this.products = products;
-      console.log(products);
-    }); */
+    });
+  }
+
+  onDeleteProduct(product: Product) {
+    this.ecommerceService.deleteProduct(product).then((res) => {
+      this.toastr.success('Producto eliminado con éxito', 'Producto Eliminado');
+    });
   }
 }

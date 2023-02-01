@@ -9,6 +9,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { FormProductComponent } from './components/form-product/form-product.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,15 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     HomeComponent,
     SidebarComponent,
     HeaderComponent,
+    FormProductComponent,
   ],
-  imports: [CommonModule, DashboardRoutingModule, RouterLink, RouterLinkActive],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    RouterLink,
+    RouterLinkActive,
+    ReactiveFormsModule,
+  ],
   exports: [DashboardComponent],
 })
 export class DashboardModule {}

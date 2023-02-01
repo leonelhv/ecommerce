@@ -1,0 +1,184 @@
+<form
+  class="flex flex-col gap-4"
+  [formGroup]="formProduct"
+  (submit)="onSaveProduct()"
+>
+  <div class="relative w-full">
+    <label for="title" class="text-gray-700">
+      Nombre del Producto
+      <span class="text-red-500"> * </span>
+    </label>
+    <input
+      id="title"
+      type="text"
+      class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-transparent border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+      formControlName="title"
+      [ngClass]="{
+        'border-red-600 focus:ring-red-600': campoNoValido('title')
+      }"
+    />
+    <div>
+      <p
+        class="text-sm text-red-600"
+        *ngIf="form['title']?.errors?.['required'] && form['title'].touched"
+      >
+        El nombre del producto es necesario.
+      </p>
+      <p
+        class="text-sm text-red-600"
+        *ngIf="form['title']?.errors?.['minlength'] && form['title'].touched"
+      >
+        Minímo 5 carácteres.
+      </p>
+      <p
+        class="text-sm text-red-600"
+        *ngIf="form['title']?.errors?.['maxlength'] && form['title'].touched"
+      >
+        Máximo 100 carácteres.
+      </p>
+    </div>
+  </div>
+  <div class="relative w-full">
+    <label for="description" class="text-gray-700">
+      Descripción
+      <span class="text-red-500"> * </span>
+    </label>
+
+    <label class="text-gray-700" for="name">
+      <textarea
+        id="description"
+        class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+        rows="5"
+        cols="40"
+        formControlName="description"
+        [ngClass]="{
+          'border-red-600 focus:ring-red-600': campoNoValido('description')
+        }"
+      >
+      </textarea>
+      <div>
+        <p
+          class="text-sm text-red-600"
+          *ngIf="form['description']?.errors?.['required'] && form['description'].touched"
+        >
+          El descripción del producto es necesario.
+        </p>
+        <p
+          class="text-sm text-red-600"
+          *ngIf="form['description']?.errors?.['minlength'] && form['description'].touched"
+        >
+          Minímo 100 carácteres.
+        </p>
+        <p
+          class="text-sm text-red-600"
+          *ngIf="form['description']?.errors?.['maxlength'] && form['description'].touched"
+        >
+          Máximo 500 carácteres.
+        </p>
+      </div>
+    </label>
+  </div>
+  <div class="flex gap-4">
+    <div class="relative flex-1 w-full">
+      <label for="price" class="text-gray-700">
+        Costo
+        <span class="text-red-500"> * </span>
+      </label>
+      <input
+        id="price"
+        type="number"
+        class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-transparent border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+        formControlName="price"
+        [ngClass]="{
+          'border-red-600 focus:ring-red-600': campoNoValido('price')
+        }"
+      />
+      <div>
+        <p
+          class="text-sm text-red-600"
+          *ngIf="form['price']?.errors?.['required'] && form['price'].touched"
+        >
+          El costo del producto es necesario.
+        </p>
+        <p
+          class="text-sm text-red-600"
+          *ngIf="form['price']?.errors?.['min'] && form['price'].touched"
+        >
+          El precio nínimo es 3
+        </p>
+      </div>
+    </div>
+
+    <div class="relative flex-1 w-full">
+      <label for="offer" class="text-gray-700">
+        Oferta
+        <span class="text-red-500"> * </span>
+      </label>
+      <input
+        id="offer"
+        type="number"
+        class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-transparent border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+        formControlName="offer"
+        [ngClass]="{
+          'border-red-600 focus:ring-red-600': campoNoValido('offer')
+        }"
+      />
+      <div>
+        <p
+          class="text-sm text-red-600"
+          *ngIf="form['offer']?.errors?.['required'] && form['offer'].touched"
+        >
+          La oferta del producto es necesario.
+        </p>
+        <p
+          class="text-sm text-red-600"
+          *ngIf="form['offer']?.errors?.['min'] && form['offer'].touched"
+        >
+          la oferta mínima es 0 el cual significa que el costo será el precio en
+          venta
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative w-full">
+    <label for="image" class="text-gray-700">
+      URL de la imagen
+      <span class="text-red-500"> * </span>
+    </label>
+    <input
+      id="image"
+      type="url"
+      class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-transparent border-gray-300 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+      formControlName="image"
+      [ngClass]="{
+        'border-red-600 focus:ring-red-600': campoNoValido('image')
+      }"
+    />
+    <div>
+      <p
+        class="text-sm text-red-600"
+        *ngIf="form['image']?.errors?.['required'] && form['image'].touched"
+      >
+        La URL de la imagen del producto es necesario.
+      </p>
+      <p
+        class="text-sm text-red-600"
+        *ngIf="form['image']?.errors?.['pattern'] && form['image'].touched"
+      >
+        No es una URL de Imagen Válida .Ejemplo :
+        https://www.example.com/images/image1.jpg .Se aceptan
+        jpeg|jpg|png|svg|webp
+      </p>
+    </div>
+  </div>
+  <div class="relative w-full">
+    <button
+      type="submit"
+      [disabled]="formProduct.invalid"
+      class="px-4 py-2 text-white bg-blue-500 rounded-lg whitespace-nowrap hover:bg-blue-700 disabled:bg-blue-300"
+    >
+      Registrar Producto
+    </button>
+  </div>
+</form>

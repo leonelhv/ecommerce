@@ -1,3 +1,25 @@
+<a
+  routerLink="/dashboard/add-product"
+  class="flex items-center gap-3 px-4 py-2 mb-3 text-white bg-green-500 rounded-lg hover:bg-green-700 w-max"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="icon icon-tabler icon-tabler-plus"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="#ffffff"
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+  Añadir Producto
+</a>
 <table class="table p-4 bg-white rounded-lg shadow">
   <thead>
     <tr>
@@ -47,7 +69,10 @@
         {{ product.offer | currency }}
       </td>
       <td class="p-4 border-b-2 dark:border-dark-5">
-        <button class="px-4 py-2 text-white bg-red-500 rounded-lg">
+        <button
+          (click)="onDeleteProduct(product)"
+          class="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-700"
+        >
           Eliminar
         </button>
       </td>
