@@ -56,6 +56,29 @@
               </div>
               <div class="hidden gap-4 sm:flex" *ngIf="!infoUser">
                 <button
+                  routerLink="cart"
+                  class="flex items-center gap-2 px-4 py-2 text-white bg-black rounded-lg"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-shopping-cart"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="#fff"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <circle cx="6" cy="19" r="2" />
+                    <circle cx="17" cy="19" r="2" />
+                    <path d="M17 17h-11v-14h-2" />
+                    <path d="M6 5l14 1l-1 7h-13" /></svg
+                  >Ver Carrito
+                </button>
+                <button
                   class="px-4 py-2 text-white bg-blue-500 rounded-lg"
                   routerLink="/auth/login"
                 >
@@ -172,6 +195,29 @@
         </div>
       </div>
       <div class="flex -mr-2 md:hidden" (click)="onMenuMobile()">
+        <button
+          routerLink="cart"
+          class="flex items-center gap-2 px-4 text-white bg-black rounded-lg"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-shopping-cart"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#fff"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <circle cx="6" cy="19" r="2" />
+            <circle cx="17" cy="19" r="2" />
+            <path d="M17 17h-11v-14h-2" />
+            <path d="M6 5l14 1l-1 7h-13" /></svg
+          >Ver Carrito
+        </button>
         <button
           class="inline-flex items-center justify-center p-2 text-gray-800 rounded-md hover:text-gray-300 focus:outline-none"
         >
