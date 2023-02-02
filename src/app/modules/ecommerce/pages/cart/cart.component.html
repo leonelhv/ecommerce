@@ -28,7 +28,7 @@
           Pagar
         </button>
       </div>
-      <div *ngIf="!infoUser">
+      <div *ngIf="!infoUser && cart.length">
         <h3>Inicia Sesión para realizar la compra</h3>
         <button
           routerLink="/auth/login"
