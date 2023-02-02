@@ -20,55 +20,45 @@
   </svg>
   Añadir Producto
 </a>
-<table class="table p-4 bg-white rounded-lg shadow">
+<table class="table w-full p-4 bg-white rounded-lg shadow">
   <thead>
     <tr>
-      <th
-        class="p-4 font-normal text-gray-900 border-b-2 dark:border-dark-5 whitespace-nowrap"
-      >
+      <th class="p-4 font-normal text-gray-900 border-b-2 whitespace-nowrap">
         #
       </th>
-      <th
-        class="p-4 font-normal text-gray-900 border-b-2 dark:border-dark-5 whitespace-nowrap"
-      >
+      <th class="p-4 font-normal text-gray-900 border-b-2 whitespace-nowrap">
         Imagen
       </th>
-      <th
-        class="p-4 font-normal text-gray-900 border-b-2 dark:border-dark-5 whitespace-nowrap"
-      >
+      <th class="p-4 font-normal text-gray-900 border-b-2 whitespace-nowrap">
         Producto
       </th>
-      <th
-        class="p-4 font-normal text-gray-900 border-b-2 dark:border-dark-5 whitespace-nowrap"
-      >
+      <th class="p-4 font-normal text-gray-900 border-b-2 whitespace-nowrap">
         Costo
       </th>
-      <th
-        class="p-4 font-normal text-gray-900 border-b-2 dark:border-dark-5 whitespace-nowrap"
-      >
+      <th class="p-4 font-normal text-gray-900 border-b-2 whitespace-nowrap">
         Oferta
       </th>
-      <th
-        class="p-4 font-normal text-gray-900 border-b-2 dark:border-dark-5 whitespace-nowrap"
-      >
+      <th class="p-4 font-normal text-gray-900 border-b-2 whitespace-nowrap">
         Tools
       </th>
     </tr>
   </thead>
   <tbody>
     <tr class="text-gray-700" *ngFor="let product of products; let i = index">
-      <td class="p-4 border-b-2 dark:border-dark-5">{{ i + 1 }}</td>
-      <td class="p-4 border-b-2 dark:border-dark-5">
+      <td class="p-4 border-b-2">{{ i + 1 }}</td>
+      <td class="p-4 border-b-2">
         <img class="object-contain w-6 h-6" [src]="product.image" alt="" />
       </td>
-      <td class="p-4 border-b-2 dark:border-dark-5">{{ product.title }}</td>
-      <td class="p-4 border-b-2 dark:border-dark-5">
+      <td class="p-4 border-b-2">
+        <p class="line-clamp-1" [title]="product.title">{{ product.title }}</p>
+      </td>
+      <td class="p-4 border-b-2">
         {{ product.price | currency }}
       </td>
-      <td class="p-4 border-b-2 dark:border-dark-5">
+      <td class="p-4 border-b-2">
         {{ product.offer | currency }}
       </td>
-      <td class="p-4 border-b-2 dark:border-dark-5">
+      <td class="p-4 border-b-2">
         <button
           (click)="onDeleteProduct(product)"
           class="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-700"
