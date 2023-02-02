@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getAuth } from 'firebase/auth';
@@ -25,7 +24,7 @@ export class AuthService {
 
   constructor(
     private auth: AngularFireAuth,
-    private router: Router,
+
     private firestore: Firestore
   ) {}
 
@@ -58,10 +57,7 @@ export class AuthService {
 
   //Para cerrar la sesión del usuario
   logout() {
-    localStorage.removeItem('user');
-    this.auth.signOut().then(() => {
-      this.router.navigate(['auth/login']);
-    });
+    return this.auth.signOut();
   }
 
   //Para obtener el rol del usuario desde firestore

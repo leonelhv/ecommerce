@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { userInfo } from 'src/app/interfaces/auth.interface';
 import { AuthService } from '../../services/auth.service';
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
   infoUser!: userInfo | null;
   showSettings = false;
   displayMenuMobile = false;
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.infoUser = JSON.parse(localStorage.getItem('user')!);
@@ -37,6 +38,9 @@ export class NavbarComponent implements OnInit {
 
   //Cierra Sesión del usuario
   onLogout() {
-    this.authService.logout();
+    this.authService.logout().then((res) => {
+      localStorage.removeItem('user');
+      this.router.navigate(['auth/login']);
+    });
   }
 }
