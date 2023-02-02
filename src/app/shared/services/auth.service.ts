@@ -29,6 +29,7 @@ export class AuthService {
     private firestore: Firestore
   ) {}
 
+  //registra a usuario con firebase authetication y guarda el rol en la BD de firestore
   registerUser(newUser: userData) {
     const { email, password, displayName } = newUser;
     this.auth
@@ -54,6 +55,8 @@ export class AuthService {
         console.log(error);
       });
   }
+
+  //Para cerrar la sesión del usuario
   logout() {
     this.auth.signOut().then(() => {
       localStorage.removeItem('user');
@@ -61,12 +64,14 @@ export class AuthService {
     });
   }
 
+  //Para obtener el rol del usuario desde firestore
   getRolUser(email: string) {
     const productRef = collection(this.firestore, 'users');
     const colQuery = query(productRef, where('email', '==', email));
     return collectionData(colQuery);
   }
 
+  //Para logearse con correo y contraseña
   loginWithEmail(email: string, password: string) {
     this.auth
       .signInWithEmailAndPassword(email, password)
@@ -90,6 +95,7 @@ export class AuthService {
       .catch(() => (this.loginEmailInvalid = true));
   }
 
+  //Verifica si un email ya esta registrado en firebase
   verificarEmailInFirebase(email: string): Observable<boolean> {
     const auth = getAuth();
     return from(fetchSignInMethodsForEmail(auth, email)).pipe(
