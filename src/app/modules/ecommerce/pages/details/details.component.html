@@ -1,6 +1,35 @@
 <div class="px-8 mx-auto max-w-7xl">
   <div class="py-6">
-    <h1 class="mb-6 text-4xl font-bold">Producto: {{ product.title }}</h1>
+    <div class="flex flex-col justify-between gap-4 mb-6 sm:flex-row">
+      <div>
+        <h1 class="text-4xl font-bold">{{ product.title }}</h1>
+        <small>Código del Producto:{{ product.id }}</small>
+      </div>
+      <div class="flex items-center justify-end">
+        <button
+          routerLink="/products"
+          class="flex items-center justify-center gap-2 px-4 py-2 mt-2 font-medium text-white bg-purple-500 rounded-lg hover:bg-purple-700 whitespace-nowrap"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-chevrons-left"
+            width="20"
+            height="20"
+            viewBox="0 0 22 22"
+            stroke-width="1.5"
+            stroke="#ffffff"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <polyline points="11 7 6 12 11 17" />
+            <polyline points="17 7 12 12 17 17" />
+          </svg>
+          Seguir comprando
+        </button>
+      </div>
+    </div>
     <div class="flex flex-col gap-4 sm:flex-row">
       <div class="flex justify-center flex-1">
         <img class="p-6 h-96" [src]="product.image" alt="" />
