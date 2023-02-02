@@ -54,7 +54,7 @@
                   </div>
                 </button>
               </div>
-              <div class="flex gap-4" *ngIf="!infoUser">
+              <div class="hidden gap-4 sm:flex" *ngIf="!infoUser">
                 <button
                   class="px-4 py-2 text-white bg-blue-500 rounded-lg"
                   routerLink="/auth/login"
@@ -211,6 +211,20 @@
       >
         Productos
       </a>
+      <div class="flex justify-between gap-4" *ngIf="!infoUser">
+        <button
+          class="px-4 py-2 text-white bg-blue-500 rounded-lg"
+          routerLink="/auth/login"
+        >
+          Iniciar Sesión
+        </button>
+        <button
+          class="px-4 py-2 text-white bg-orange-500 rounded-lg"
+          routerLink="/auth/register"
+        >
+          Registrate
+        </button>
+      </div>
     </div>
   </div>
 </nav>
