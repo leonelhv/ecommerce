@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { userInfo } from 'src/app/interfaces/auth.interface';
+import { CartUser } from 'src/app/interfaces/cartUser.interface';
 import { AuthService } from '../../services/auth.service';
+import { EcommerceService } from '../../services/ecommerce.service';
+import { MenuContextualService } from '../../services/menu-contextual.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,10 +15,40 @@ export class NavbarComponent implements OnInit {
   infoUser!: userInfo | null;
   showSettings = false;
   displayMenuMobile = false;
-  constructor(private authService: AuthService, private router: Router) {}
+  cart!: CartUser[];
+  subtotal: number = 0;
+  cantProduct: number = 0;
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private popupService: MenuContextualService,
+    private viewContainerRef: ViewContainerRef,
+    private ecommerceService: EcommerceService
+  ) {}
 
   ngOnInit(): void {
     this.infoUser = JSON.parse(localStorage.getItem('user')!);
+    this.getDataCart();
+  }
+
+  getDataCart() {
+    this.ecommerceService.getCartLocalStorage().subscribe((res) => {
+      this.cart = res;
+      this.calcularPago();
+      this.calcularCantidadProductos();
+    });
+  }
+
+  calcularPago() {
+    this.subtotal = this.cart.reduce((acc, current) => {
+      return acc + current.subtotal;
+    }, 0);
+  }
+
+  calcularCantidadProductos() {
+    this.cantProduct = this.cart.reduce((acc, current) => {
+      return acc + current.cantidad;
+    }, 0);
   }
 
   //Muestra el menú settings
@@ -41,5 +74,16 @@ export class NavbarComponent implements OnInit {
       localStorage.removeItem('user');
       this.router.navigate(['auth/login']);
     });
+  }
+
+  onOpenCart(origin: any, menu: any) {
+    this.getDataCart();
+    this.popupService
+      .open(origin, menu, this.viewContainerRef, {
+        data: this.cart,
+      })
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

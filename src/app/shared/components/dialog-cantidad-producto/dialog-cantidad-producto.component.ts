@@ -31,7 +31,7 @@ export class DialogCantidadProductoComponent {
     this.formCantidad.markAllAsTouched();
     if (this.formCantidad.valid) {
       let subtotal = 0;
-      const cartUSer = this.ecommerceService.getCartLocalStorage();
+
       const cantidad = this.formCantidad.value.cantidad;
       const { offer, price } = this.dataOverlay;
 
@@ -49,11 +49,31 @@ export class DialogCantidadProductoComponent {
       };
       delete newItem.description;
 
-      const newCart = [...cartUSer, newItem];
+      this.ecommerceService.getCartLocalStorage().subscribe((cartUser) => {
+        let newCart;
+        const existProductOnCart = cartUser.some(
+          (product: any) => product.id === newItem.id
+        );
 
-      this.ecommerceService.saveCartLocalStorage(newCart);
-      this.toastr.success('Producto añadido al carrito', 'Producto Agregado');
-      this.overlayService.close();
+        if (existProductOnCart) {
+          newCart = cartUser.map((item: any) => {
+            if (item.id === newItem.id) {
+              return {
+                ...item,
+                cantidad: item.cantidad + newItem.cantidad,
+                subtotal: subtotal + item.subtotal,
+              };
+            }
+            return item;
+          });
+        } else {
+          newCart = [...cartUser, newItem];
+        }
+
+        this.ecommerceService.saveCartLocalStorage(newCart);
+        this.toastr.success('Producto añadido al carrito', 'Producto Agregado');
+        this.overlayService.close();
+      });
     }
   }
 

@@ -22,7 +22,9 @@ export class CartComponent {
     private toastr: ToastrService,
     private router: Router
   ) {
-    this.cart = this.ecommerceService.getCartLocalStorage();
+    this.ecommerceService.getCartLocalStorage().subscribe((res) => {
+      this.cart = res;
+    });
     this.totalPagar = this.calcularPago();
     this.infoUser = JSON.parse(localStorage.getItem('user')!);
   }

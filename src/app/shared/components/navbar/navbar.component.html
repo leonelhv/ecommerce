@@ -31,9 +31,25 @@
 
       <div class="flex">
         <div class="flex items-center ml-4 md:ml-6">
-          <div class="relative ml-3">
+          <div class="relative flex ml-3">
+            <button
+              routerLink="cart"
+              class="flex items-center gap-2 px-4 py-2 rounded-lg"
+            >
+              <img
+                src="assets/img/cart.png"
+                alt=""
+                #btnCarritoDesktop
+                class="hidden w-6 sm:block"
+                (mouseenter)="onOpenCart(btnCarritoDesktop, tpl)"
+              />
+              <img src="assets/img/cart.png" class="w-6 sm:hidden" />
+            </button>
             <div class="relative text-left">
-              <div *ngIf="infoUser" class="flex items-center justify-center">
+              <div
+                *ngIf="infoUser"
+                class="flex items-center justify-center gap-4"
+              >
                 <p class="whitespace-nowrap">{{ infoUser.displayName }}</p>
                 <button
                   type="button"
@@ -56,29 +72,6 @@
               </div>
               <div class="hidden gap-4 sm:flex" *ngIf="!infoUser">
                 <button
-                  routerLink="cart"
-                  class="flex items-center gap-2 px-4 py-2 text-white bg-black rounded-lg"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="icon icon-tabler icon-tabler-shopping-cart"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="#fff"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <circle cx="6" cy="19" r="2" />
-                    <circle cx="17" cy="19" r="2" />
-                    <path d="M17 17h-11v-14h-2" />
-                    <path d="M6 5l14 1l-1 7h-13" /></svg
-                  >Ver Carrito
-                </button>
-                <button
                   class="px-4 py-2 text-white bg-blue-500 rounded-lg"
                   routerLink="/auth/login"
                 >
@@ -93,7 +86,7 @@
               </div>
               <ng-container *ngIf="showSettings">
                 <div
-                  class="absolute right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
+                  class="absolute right-0 w-56 origin-top-right bg-white rounded-md shadow-lg mt-7 ring-1 ring-black ring-opacity-5"
                 >
                   <div
                     class="py-1"
@@ -158,8 +151,7 @@
                       </span>
                     </a>
                     <a
-                      href="#"
-                      class="block px-4 py-2 text-gray-700 text-md hover:bg-gray-100 hover:text-gray-900"
+                      class="block px-4 py-2 text-gray-700 cursor-pointer text-md hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem"
                       (click)="onLogout()"
                     >
@@ -193,29 +185,6 @@
         </div>
       </div>
       <div class="flex -mr-2 md:hidden" (click)="onMenuMobile()">
-        <button
-          routerLink="cart"
-          class="flex items-center gap-2 px-4 text-white bg-black rounded-lg sm:hidden"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-shopping-cart"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#fff"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <circle cx="6" cy="19" r="2" />
-            <circle cx="17" cy="19" r="2" />
-            <path d="M17 17h-11v-14h-2" />
-            <path d="M6 5l14 1l-1 7h-13" /></svg
-          >Ver Carrito
-        </button>
         <button
           class="inline-flex items-center justify-center p-2 text-gray-800 rounded-md hover:text-gray-300 focus:outline-none"
         >
@@ -272,3 +241,59 @@
     </div>
   </div>
 </nav>
+
+<ng-template #tpl let-data let-close="close">
+  <div
+    class="p-4 mt-10 overflow-hidden bg-white rounded-md shadow-sm w-60 max-h-max"
+  >
+    <div class="flex flex-col gap-2">
+      <ng-container *ngIf="data.data.length > 0">
+        <div class="flex flex-col">
+          <div
+            class="flex gap-4 py-2 border-b"
+            *ngFor="let product of data.data.slice(0, 4)"
+          >
+            <div class="flex justify-center w-10">
+              <img
+                [src]="product.image"
+                alt=""
+                class="object-contain w-8 h-8"
+              />
+            </div>
+            <div class="flex flex-col flex-1">
+              <h5 class="line-clamp-1">{{ product.title }}</h5>
+              <small
+                >Precio:
+                <span class="text-red-500">{{
+                  product.offer === 0
+                    ? (product.price | currency)
+                    : (product.offer | currency)
+                }}</span></small
+              >
+              <small>Cantidad: {{ product.cantidad }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between pb-2 border-b">
+          <h4 class="text-sm">Sub Total({{ cantProduct }}):</h4>
+          <h4 class="text-lg font-semibold text-red-700">
+            {{ subtotal | currency }}
+          </h4>
+        </div>
+      </ng-container>
+      <div
+        *ngIf="data.data.length == 0"
+        class="pb-2 text-xs text-center border-b"
+      >
+        <p>No tienes productos en tu carrito.</p>
+        <p>¡Empieza a comprar ahora!.</p>
+      </div>
+      <a
+        (click)="close()"
+        class="text-center text-orange-500"
+        routerLink="/cart"
+        >Ir a mi carrito</a
+      >
+    </div>
+  </div>
+</ng-template>

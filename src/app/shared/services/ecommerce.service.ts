@@ -6,7 +6,7 @@ import {
   Firestore,
 } from '@angular/fire/firestore';
 import { collection, doc, updateDoc } from '@firebase/firestore';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CartUser } from 'src/app/interfaces/cartUser.interface';
 import { Product } from 'src/app/interfaces/product.interface';
 
@@ -17,15 +17,15 @@ export class EcommerceService {
   cartUser: CartUser[] = [];
 
   constructor(private firestore: Firestore) {
-    this.cartUser = this.getCartLocalStorage();
+    this.getCartLocalStorage().subscribe((res) => {
+      this.cartUser = res;
+    });
   }
   //Obtiene el carrito desde el localstorage
-  getCartLocalStorage() {
-    const getCartLocalStorage = JSON.parse(
-      localStorage.getItem('cart') || '[]'
-    );
-    return getCartLocalStorage;
+  getCartLocalStorage(): Observable<any> {
+    return of(JSON.parse(localStorage.getItem('cart') || '[]'));
   }
+
   //Guarda el carrito en el localstorage
   saveCartLocalStorage(cart: CartUser[]) {
     localStorage.setItem('cart', JSON.stringify(cart));
