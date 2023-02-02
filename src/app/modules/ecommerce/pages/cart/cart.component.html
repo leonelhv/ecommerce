@@ -18,7 +18,7 @@
           <h2 class="text-2xl">No hay ningún producto en el carrito</h2>
         </div>
       </div>
-      <div class="w-96" *ngIf="cart.length && infoUser">
+      <div class="w-full sm:w-96" *ngIf="cart.length && infoUser">
         <h3 class="text-lg font-semibold">Total:</h3>
         <p class="text-4xl font-bold">{{ totalPagar | currency }}</p>
         <button
