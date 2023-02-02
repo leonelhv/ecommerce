@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 import { EcommerceRoutingModule } from './ecommerce-routing.module';
 import { HomeComponent } from './pages/home/home.component';
@@ -39,6 +39,7 @@ import { OrderDetailComponent } from './pages/order-detail/order-detail.componen
     OverlayModule,
     PortalModule,
     RouterLink,
+    NgOptimizedImage,
   ],
   exports: [EcommerceComponent],
 })
