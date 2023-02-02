@@ -58,8 +58,8 @@ export class AuthService {
 
   //Para cerrar la sesión del usuario
   logout() {
+    localStorage.removeItem('user');
     this.auth.signOut().then(() => {
-      localStorage.removeItem('user');
       this.router.navigate(['auth/login']);
     });
   }
@@ -73,26 +73,7 @@ export class AuthService {
 
   //Para logearse con correo y contraseña
   loginWithEmail(email: string, password: string) {
-    this.auth
-      .signInWithEmailAndPassword(email, password)
-      .then((res) => {
-        this.loginEmailInvalid = false;
-        const { displayName, email, photoURL } = res.user as any;
-        const user = {
-          displayName,
-          email,
-          photoURL,
-        };
-        localStorage.setItem('user', JSON.stringify(user));
-        this.getRolUser(email).subscribe((res: any) => {
-          if (res[0].rol === 'user') {
-            this.router.navigate(['/']);
-          } else if (res[0].rol === 'admin') {
-            this.router.navigate(['dashboard/products']);
-          }
-        });
-      })
-      .catch(() => (this.loginEmailInvalid = true));
+    return this.auth.signInWithEmailAndPassword(email, password);
   }
 
   //Verifica si un email ya esta registrado en firebase

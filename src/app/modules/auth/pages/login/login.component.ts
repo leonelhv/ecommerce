@@ -24,10 +24,29 @@ export class LoginComponent {
   });
 
   loginWithEmail() {
-    this.authService.loginWithEmail(
-      this.form['correo'].value,
-      this.form['password'].value
-    );
+    this.authService
+      .loginWithEmail(this.form['correo'].value, this.form['password'].value)
+      .then((res) => {
+        this.loginEmailInvalid = false;
+        const { displayName, email, photoURL } = res.user as any;
+        const user = {
+          displayName,
+          email,
+          photoURL,
+        };
+        localStorage.setItem('user', JSON.stringify(user));
+        this.authService.getRolUser(email).subscribe((res: any) => {
+          if (res[0].rol === 'user') {
+            this.router.navigate(['/']);
+          } else if (res[0].rol === 'admin') {
+            this.router.navigate(['/dashboard']);
+          }
+        });
+      })
+      .catch((error) => {
+        this.loginEmailInvalid = true;
+        console.log(error);
+      });
     this.loginEmailInvalid = this.authService.loginEmailInvalid;
   }
 
