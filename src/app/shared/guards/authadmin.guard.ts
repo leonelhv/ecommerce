@@ -6,7 +6,6 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { user } from 'src/app/interfaces/auth.interface';
 import { AuthService } from '../services/auth.service';
 
@@ -14,34 +13,27 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root',
 })
 export class AuthadminGuard implements CanActivate {
-  user: user;
-  isAdmin = false;
-  constructor(private authService: AuthService, private router: Router) {
-    this.user = JSON.parse(localStorage.getItem('user')!);
-    if (this.user) {
-      this.authService.getRolUser(this.user.email).subscribe((res: any) => {
-        const rol = res[0].rol;
+  user!: user;
+  constructor(private authService: AuthService, private router: Router) {}
 
-        if (rol === 'admin') {
-          this.isAdmin = true;
-        } else {
-          this.isAdmin = false;
-        }
-      });
-    }
-  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    if (this.isAdmin) {
-      return true;
-    } else {
-      return this.router.navigate(['auth/login']);
-    }
+  ): Promise<boolean | UrlTree> {
+    return new Promise((resolve, reject) => {
+      this.user = JSON.parse(localStorage.getItem('user')!);
+      if (this.user) {
+        this.authService.getRolUser(this.user.email).subscribe((res: any) => {
+          const rol = res[0].rol;
+          if (rol === 'admin') {
+            resolve(true);
+          } else {
+            resolve(this.router.navigate(['auth/login']));
+          }
+        });
+      } else {
+        resolve(this.router.navigate(['auth/login']));
+      }
+    });
   }
 }

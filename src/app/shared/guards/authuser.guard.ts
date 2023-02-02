@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { user } from 'src/app/interfaces/auth.interface';
 import { AuthService } from '../services/auth.service';
 
@@ -14,22 +14,8 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root',
 })
 export class AuthuserGuard implements CanActivate {
-  user: user;
-  isUser = false;
-  constructor(private authService: AuthService, private router: Router) {
-    this.user = JSON.parse(localStorage.getItem('user')!);
-    if (this.user) {
-      this.authService.getRolUser(this.user.email).subscribe((res: any) => {
-        const rol = res[0].rol;
+  constructor(private authService: AuthService, private router: Router) {}
 
-        if (rol === 'user') {
-          this.isUser = true;
-        } else {
-          this.isUser = false;
-        }
-      });
-    }
-  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -38,10 +24,22 @@ export class AuthuserGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.isUser) {
-      return true;
-    } else {
-      return this.router.navigate(['auth/login']);
+    const user = JSON.parse(localStorage.getItem('user')!);
+    if (!user) {
+      return this.router.createUrlTree(['auth/login']);
     }
+
+    return this.authService.getRolUser(user.email).pipe(
+      map((res: any) => {
+        const rol = res[0].rol;
+
+        if (rol === 'user') {
+          return true;
+        } else {
+          return this.router.createUrlTree(['auth/login']);
+        }
+      }),
+      catchError(() => of(this.router.createUrlTree(['auth/login'])))
+    );
   }
 }
