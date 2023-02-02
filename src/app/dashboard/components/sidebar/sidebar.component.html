@@ -5,6 +5,7 @@
     routerLink="/dashboard"
     routerLinkActive="text-blue-500 border-blue-500 bg-gradient-to-r from-white to-blue-100 border-r-4"
     [routerLinkActiveOptions]="{ exact: true }"
+    (click)="onEventClickLink()"
   >
     <span class="text-left">
       <svg
@@ -26,6 +27,7 @@
     href="#"
     routerLink="/dashboard/products"
     routerLinkActive="text-blue-500 border-blue-500 bg-gradient-to-r from-white to-blue-100 border-r-4"
+    (click)="onEventClickLink()"
   >
     <span class="text-left">
       <svg
@@ -48,6 +50,7 @@
     href="#"
     routerLink="/dashboard/add-product"
     routerLinkActive="text-blue-500 border-blue-500 bg-gradient-to-r from-white to-blue-100 border-r-4"
+    (click)="onEventClickLink()"
   >
     <span class="text-left">
       <svg
