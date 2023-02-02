@@ -29,17 +29,6 @@ export class AuthService {
     private firestore: Firestore
   ) {}
 
-  datosUsuario(): Observable<userInfo> {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    const userInfo: userInfo = {
-      displayName: user!.displayName,
-      email: user!.email,
-      photoURL: user!.photoURL,
-    };
-    return of(userInfo);
-  }
-
   registerUser(newUser: userData) {
     const { email, password, displayName } = newUser;
     this.auth

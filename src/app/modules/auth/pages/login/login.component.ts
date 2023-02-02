@@ -19,11 +19,8 @@ export class LoginComponent {
   ) {}
 
   formLogin = this.fb.group({
-    correo: [
-      'test@test.com',
-      [Validators.required, Validators.pattern(regexEmail)],
-    ],
-    password: ['12345678', Validators.required],
+    correo: ['', [Validators.required, Validators.pattern(regexEmail)]],
+    password: ['', Validators.required],
   });
 
   loginWithEmail() {

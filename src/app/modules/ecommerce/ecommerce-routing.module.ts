@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthuserGuard } from 'src/app/shared/guards/authuser.guard';
 import { EcommerceComponent } from './ecommerce.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { DetailsComponent } from './pages/details/details.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
       {
         path: 'cart',
         component: CartComponent,
+        canActivate: [AuthuserGuard],
       },
       {
         path: 'details',
@@ -28,10 +30,12 @@ const routes: Routes = [
       {
         path: 'orders',
         component: OrdersComponent,
+        canActivate: [AuthuserGuard],
       },
       {
         path: 'order-detail/:uid',
         component: OrderDetailComponent,
+        canActivate: [AuthuserGuard],
       },
       {
         path: '',
