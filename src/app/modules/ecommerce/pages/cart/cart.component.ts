@@ -45,6 +45,7 @@ export class CartComponent implements OnInit {
       email: this.infoUser.email!,
       products: this.cart,
       pagoTotal: this.totalPagar,
+      timestamp: Date.now(),
     };
     this.orderService.addOrderUser(newOrder);
     localStorage.removeItem('cart');

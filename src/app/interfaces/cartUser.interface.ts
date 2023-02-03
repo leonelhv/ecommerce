@@ -13,6 +13,7 @@ export interface OrderUser {
   email: string;
   products: ProductOrder[];
   pagoTotal: number;
+  timestamp: number;
 }
 
 interface ProductOrder extends CartUser {}

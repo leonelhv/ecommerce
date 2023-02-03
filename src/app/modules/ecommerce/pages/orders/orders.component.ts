@@ -13,7 +13,13 @@ export class OrdersComponent {
   constructor(private orderService: OrderService) {
     const user = JSON.parse(localStorage.getItem('user')!);
     this.orderService.getOrdersUser(user.email).subscribe((orders) => {
-      this.orders = orders as OrderUser[];
+      this.orders = this.sortOrders(orders as OrderUser[]);
+    });
+  }
+
+  sortOrders(orders: OrderUser[]) {
+    return orders.sort(function (a, b) {
+      return a.timestamp - b.timestamp;
     });
   }
 }
