@@ -11,13 +11,14 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CarouselHeroComponent } from './components/carousel-hero/carousel-hero.component';
 import { CardProductComponent } from './components/card-product/card-product.component';
+import { CardCartComponent } from './components/card-cart/card-cart.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { RouterLink } from '@angular/router';
+import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 //overlay
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
-import { OrdersComponent } from './pages/orders/orders.component';
-import { CardCartComponent } from './components/card-cart/card-cart.component';
-import { RouterLink } from '@angular/router';
-import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -40,6 +41,7 @@ import { OrderDetailComponent } from './pages/order-detail/order-detail.componen
     PortalModule,
     RouterLink,
     NgOptimizedImage,
+    NgxPayPalModule,
   ],
   exports: [EcommerceComponent],
 })

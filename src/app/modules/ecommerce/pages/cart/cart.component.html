@@ -37,12 +37,9 @@
       <div class="w-full sm:w-96" *ngIf="cart.length && infoUser">
         <h3 class="text-lg font-semibold">Total:</h3>
         <p class="text-4xl font-bold">{{ totalPagar | currency }}</p>
-        <button
-          (click)="onBuyProducts()"
-          class="w-full py-2 mt-2 font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-700"
-        >
-          Pagar
-        </button>
+        <div class="mt-2">
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        </div>
       </div>
       <div *ngIf="!infoUser && cart.length">
         <h3 class="text-center">Inicia Sesión para realizar la compra</h3>
