@@ -24,10 +24,11 @@ export class NavbarComponent implements OnInit {
     private popupService: MenuContextualService,
     private viewContainerRef: ViewContainerRef,
     private ecommerceService: EcommerceService
-  ) {}
+  ) {
+    this.infoUser = JSON.parse(localStorage.getItem('user')!);
+  }
 
   ngOnInit(): void {
-    this.infoUser = JSON.parse(localStorage.getItem('user')!);
     this.getDataCart();
   }
 

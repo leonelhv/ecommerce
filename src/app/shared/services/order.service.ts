@@ -8,6 +8,7 @@ import {
 } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
 import { OrderUser } from 'src/app/interfaces/cartUser.interface';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -29,5 +30,11 @@ export class OrderService {
     const productRef = collection(this.firestore, 'orders');
     const colQuery = query(productRef, where('uid', '==', uid));
     return collectionData(colQuery);
+  }
+  getOrders(): Observable<OrderUser[]> {
+    const productRef = collection(this.firestore, 'orders');
+    return collectionData(productRef, { idField: 'id' }) as Observable<
+      OrderUser[]
+    >;
   }
 }
