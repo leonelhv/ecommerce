@@ -39,6 +39,17 @@
         <p class="text-4xl font-bold">{{ totalPagar | currency }}</p>
         <div class="mt-2">
           <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+          <div class="flex items-center justify-center">
+            <span class="w-full border-b-2 border-gray-500"></span>
+            <span class="px-2 text-sm">O</span
+            ><span class="w-full border-b-2 border-gray-500"></span>
+          </div>
+          <button
+            (click)="onBuyProducts()"
+            class="w-full py-2 mt-2 font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-700"
+          >
+            Pagar
+          </button>
         </div>
       </div>
       <div *ngIf="!infoUser && cart.length">
